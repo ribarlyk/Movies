@@ -1,0 +1,43 @@
+::-webkit-scrollbar {
+    width: 8px;
+    /* width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #8a8989;
+    /* color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #453e3e;
+    /* color of the thumb */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.ganre-btn {
+    &:hover {
+        background-color: rgba(53, 61, 61, 0.34);
+    }
+}
+.container-drawer {
+    border: 27px solid black;
+}
+.MuiDrawer-paperAnchorLeft {
+    background-color: rgb(0, 0, 0) !important;
+    display: flex;
+}
+
+.logo {
+    position: relative;
+    top: 30px;
+    padding: 0 10px;
+}
+
+form {
+    background-color: #8a8989 !important;
+}
