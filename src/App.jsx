@@ -1,10 +1,9 @@
-import { Name } from "./components/Counter/Name"
+import Home from "./pages/Home"
 
 export default function App() {
-
   return (
     <>
-      <Name />
+      <Home />
     </>
   )
 }
