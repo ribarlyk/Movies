@@ -1,28 +1,28 @@
 import * as React from 'react';
+import CssBaseline from "@mui/material/CssBaseline";
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import CustomizedInputBase from '../SearchBar/SearchBar';
 import getData from '../../services/fetchData';
 import { useState, useEffect } from 'react';
 import MovieCreationTwoToneIcon from '@mui/icons-material/MovieCreationTwoTone';
+import { useDispatch, useSelector } from 'react-redux';
+import { ganreSetter } from '../../store/genreSlice';
 import "./Drawer.scss"
-
 const drawerWidth = 280;
 
 export default function PermanentDrawerLeft() {
     const [genres, setGenres] = useState([])
+    const currentGenre = useSelector(state => state.ganre)
+    const dispatch = useDispatch()
 
 
 
@@ -44,7 +44,7 @@ export default function PermanentDrawerLeft() {
         fetchData()
     }, [])
 
-    console.log(genres)
+    console.log(genres, currentGenre)
 
     return (
 
@@ -84,7 +84,7 @@ export default function PermanentDrawerLeft() {
                     color: "gray", border: 'none'
                 }}>
                     {genres.map((text, index) => (
-                        <ListItem key={text.id} disablePadding className='ganre-btn'>
+                        <ListItem key={text.id} disablePadding className='ganre-btn' onClick={() => { dispatch(ganreSetter(text)) }}>
                             <ListItemButton >
                                 <ListItemIcon>
                                     <div style={{ color: 'gray' }}>
@@ -106,6 +106,6 @@ export default function PermanentDrawerLeft() {
                 <Toolbar />
 
             </Box>
-        </Box>
+        </Box >
     );
 }

@@ -25,11 +25,14 @@
     }
 }
 .container-drawer {
-    border: 27px solid black;
+    border: 37px solid black;
 }
 .MuiDrawer-paperAnchorLeft {
     background-color: rgb(0, 0, 0) !important;
     display: flex;
+}
+.MuiBox-root {
+    padding: 0;
 }
 
 .logo {
