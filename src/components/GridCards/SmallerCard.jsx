@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import "./Card.scss"
 import getData from '../../services/fetchData';
 import StarOutlineOutlinedIcon from '@mui/icons-material/StarOutlineOutlined';
+import "./SmallerCard.scss"
+
 export default function ActionAreaCardSmaller({ movie }) {
     const [crew, setCrew] = useState([])
 
@@ -29,7 +31,7 @@ export default function ActionAreaCardSmaller({ movie }) {
     }, [])
     console.log(crew)
     return (
-        <Card sx={{ maxWidth: 200, maxHeight: 350, bgcolor: "#453e3e", color: "#8a8989" }}>
+        <Card sx={{ maxWidth: 200, height: 380, bgcolor: "#453e3e", color: "#8a8989" }}>
             <CardActionArea >
                 <CardMedia
                     component="img"
@@ -40,10 +42,13 @@ export default function ActionAreaCardSmaller({ movie }) {
                 />
                 <CardContent sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: "column" }}>
 
-                    <Typography gutterBottom variant="h6" component="div">
-                        {movie.original_title}
+                    <Typography gutterBottom component="div" >
+                        {movie.title}
                     </Typography>
-
+                    <label htmlFor="" style={{ display: 'flex', alignItems: 'center' }} className='star-rating'>
+                        <StarOutlineOutlinedIcon sx={{ color: '#07b4e2', marginRight: '4px' }} />
+                        {movie.vote_average}
+                    </label>
 
                 </CardContent>
             </CardActionArea>

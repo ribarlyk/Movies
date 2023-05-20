@@ -41,7 +41,7 @@ export default function ActionAreaCard({ movie }) {
                 <CardContent sx={{ display: 'flex', justifyContent: 'flex-start' ,flexDirection:"column"}}>
                     <div className="content-container">
                         <Typography gutterBottom variant="h6" component="div">
-                            {movie.original_title}
+                            {movie.title}
                         </Typography>
                         <Typography variant="body2">
                             {movie.release_date}

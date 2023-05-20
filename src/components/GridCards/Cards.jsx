@@ -25,6 +25,7 @@ export default function ResponsiveGrid() {
     const [moviesInCinema, setMoviesInCinema] = useState([]);
     const [moviesPopular, setMoviesPopular] = useState([]);
     const [moviesTopRated, setMoviesTopRated] = useState([]);
+    const [moviesUpcoming, setMoviesUpcoming] = useState([]);
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const containerRef = useRef(null);
@@ -92,6 +93,18 @@ export default function ResponsiveGrid() {
             const responseThree = await getData(urlThree, optionsThree);
             setMoviesTopRated(prevMovies => [...prevMovies, ...responseThree.data.results]);
 
+            const urlFour = 'https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1'
+            const optionsFour = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NThhMWY0OTYzMGNlNTZhNmVhMTNhZmY5MWU1NmE1MiIsInN1YiI6IjY0NjBlNWMzYTY3MjU0MDEwMTA5OWM2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9iLUafWr7D_hVIzX6yHla8oMAAJ6n_JK8tRgH11HJoM'
+                }
+            };
+
+            const responseFour = await getData(urlFour, optionsFour);
+            setMoviesUpcoming(prevMovies => [...prevMovies, ...responseFour.data.results]);
+
 
 
         };
@@ -128,8 +141,8 @@ export default function ResponsiveGrid() {
 
     return (
         <div className='grid-container'>
-            <Box sx={{ flexGrow: 1, width: `calc(100% - 450px)`, ml: `400px`, mt: `70px`, overflowX: 'auto', padding: '16px' }}>
-                <h1>In Cinemas</h1>
+            <Box sx={{ flexGrow: 1, width: `calc(100% - 520px)`, ml: `400px`, mt: `70px`, overflowX: 'auto', padding: '16px' }}>
+                <h1 className="small-card-title">In Cinemas</h1>
                 <div style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto' }}>
                     {moviesInCinema.map((movie, index) => (
                         <div key={movie.id} style={{ flex: '0 0 auto', marginRight: '8px', padding: '10px' }}>
@@ -138,8 +151,8 @@ export default function ResponsiveGrid() {
                     ))}
                 </div>
             </Box>
-            <Box sx={{ flexGrow: 1, width: `calc(100% - 450px)`, ml: `400px`, mt: `70px`, overflowX: 'auto', padding: '16px' }}>
-                <h1>Top Rated</h1>
+            <Box sx={{ flexGrow: 1, width: `calc(100% - 520px)`, ml: `400px`, mt: `70px`, overflowX: 'auto', padding: '16px' }}>
+                <h1 className="small-card-title">Top Rated</h1>
                 <div style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto' }}>
                     {moviesTopRated.map((movie, index) => (
                         <div key={movie.id} style={{ flex: '0 0 auto', marginRight: '8px', padding: '10px' }}>
@@ -148,8 +161,8 @@ export default function ResponsiveGrid() {
                     ))}
                 </div>
             </Box>
-            <Box sx={{ flexGrow: 1, width: `calc(100% - 450px)`, ml: `400px`, mt: `70px`, overflowX: 'auto', padding: '16px' }}>
-                <h1>Trending</h1>
+            <Box sx={{ flexGrow: 1, width: `calc(100% - 520px)`, ml: `400px`, mt: `70px`, overflowX: 'auto', padding: '16px' }}>
+                <h1 className="small-card-title">Trending</h1>
                 <div style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto' }}>
                     {moviesPopular.map((movie, index) => (
                         <div key={movie.id} style={{ flex: '0 0 auto', marginRight: '8px', padding: '10px' }}>
@@ -158,8 +171,18 @@ export default function ResponsiveGrid() {
                     ))}
                 </div>
             </Box>
+            <Box sx={{ flexGrow: 1, width: `calc(100% - 520px)`, ml: `400px`, mt: `70px`, overflowX: 'auto', padding: '16px' }}>
+                <h1 className="small-card-title">Upcoming</h1>
+                <div style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto' }}>
+                    {moviesUpcoming.map((movie, index) => (
+                        <div key={movie.id} style={{ flex: '0 0 auto', marginRight: '8px', padding: '10px' }}>
+                            <ActionAreaCardSmaller movie={movie} />
+                        </div>
+                    ))}
+                </div>
+            </Box>
 
-            <Box sx={{ flexGrow: 1, width: `calc(100% - 450px)`, ml: `400px`, mt: `70px` }}>
+            <Box sx={{ flexGrow: 1, width: `calc(100% - 500px)`, ml: `400px`, mt: `70px` }}>
                 <Grid container spacing={{ xs: 4, md: 4 }} columns={{ xs: 4, sm: 8, md: 20 }}>
                     {movies.map((movie, index) => (
                         <Grid xs={4} sm={4} md={4} key={movie.id}>
