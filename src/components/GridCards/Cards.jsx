@@ -4,11 +4,11 @@ import Box from '@mui/material/Box';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import getData from '../../services/fetchData';
 import ActionAreaCard from './Card';
+import CircularProgress from '@mui/material/CircularProgress';
 import "./Cards.scss"
-
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -19,38 +19,78 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function ResponsiveGrid() {
-    const [movies, setMovies] = useState([])
+    const [movies, setMovies] = useState([]);
+    const [page, setPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const containerRef = useRef(null);
 
-    // `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreforURL}`
     useEffect(() => {
-        const HOST = `https://api.themoviedb.org/3/discover/movie?api_key=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NThhMWY0OTYzMGNlNTZhNmVhMTNhZmY5MWU1NmE1MiIsInN1YiI6IjY0NjBlNWMzYTY3MjU0MDEwMTA5OWM2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9iLUafWr7D_hVIzX6yHla8oMAAJ6n_JK8tRgH11HJoM&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true`
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NThhMWY0OTYzMGNlNTZhNmVhMTNhZmY5MWU1NmE1MiIsInN1YiI6IjY0NjBlNWMzYTY3MjU0MDEwMTA5OWM2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9iLUafWr7D_hVIzX6yHla8oMAAJ6n_JK8tRgH11HJoM'
-            }
+        const fetchData = async () => {
+            setIsLoading(true);
+
+            const HOST = `https://api.themoviedb.org/3/discover/movie`;
+            const url = `${HOST}?language=en-US&sort_by=popularity.desc&include_adult=false&include_video=true&page=${page}`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NThhMWY0OTYzMGNlNTZhNmVhMTNhZmY5MWU1NmE1MiIsInN1YiI6IjY0NjBlNWMzYTY3MjU0MDEwMTA5OWM2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9iLUafWr7D_hVIzX6yHla8oMAAJ6n_JK8tRgH11HJoM'
+                }
+            };
+
+            const response = await getData(url, options);
+            setMovies(prevMovies => [...prevMovies, ...response.data.results]);
+            setIsLoading(false);
         };
-        async function fetchData() {
-            const movies = await getData(HOST, options)
-            setMovies(movies.data.results)
+
+        fetchData();
+    }, [page]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    setPage(prevPage => prevPage + 1);
+                }
+            },
+            {
+                root: null,
+                rootMargin: '0px',
+                threshold: 1.0
+            }
+        );
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
         }
 
-        fetchData()
-    }, [])
-    console.log(movies)
+        return () => {
+            if (containerRef.current) {
+                observer.unobserve(containerRef.current);
+            }
+        };
+    }, []);
+
+    console.log(movies);
+
     return (
         <div className='grid-container'>
-            <Box sx={{ flexGrow: 1, width: `calc(100% - 280px)`, ml: `280px`, mt: `70px` }}>
-                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            <Box sx={{ flexGrow: 1, width: `calc(100% - 450px)`, ml: `400px`, mt: `70px` }}>
+                <Grid container spacing={{ xs: 4, md: 4 }} columns={{ xs: 4, sm: 8, md:20 }}>
                     {movies.map((movie, index) => (
-                        <Grid xs={2} sm={4} md={4} key={movie.id}>
+                        <Grid xs={4} sm={4} md={4} key={movie.id}>
                             <ActionAreaCard movie={movie} />
                         </Grid>
                     ))}
+
                 </Grid>
+                <div ref={containerRef} />
+                {isLoading && (
+                    <div className="loader-container">
+                        <CircularProgress className="loader" />
+                    </div>
+                )}
             </Box>
         </div>
-
     );
 }

@@ -1,5 +1,10 @@
-.grid-container {
-    margin: 0  20px;
-    background-color: #8a8989;;
-    min-height: 100vh;
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Adjust the height as needed */
+}
+
+.loader {
+    color: #bac8d7; /* Adjust the color as needed */
 }
