@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import "./Card.scss"
 import getData from '../../services/fetchData';
 import StarOutlineOutlinedIcon from '@mui/icons-material/StarOutlineOutlined';
-export default function ActionAreaCard({ movie }) {
+export default function ActionAreaCardSmaller({ movie }) {
     const [crew, setCrew] = useState([])
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export default function ActionAreaCard({ movie }) {
     }, [])
     console.log(crew)
     return (
-        <Card sx={{ maxWidth: 300, maxHeight: 550, bgcolor: "#453e3e", color: "#8a8989" }} className='card'>
+        <Card sx={{ maxWidth: 200, maxHeight: 350, bgcolor: "#453e3e", color: "#8a8989" }}>
             <CardActionArea >
                 <CardMedia
                     component="img"
@@ -38,21 +38,13 @@ export default function ActionAreaCard({ movie }) {
                     sx={{ objectFit: "stretch" }}
 
                 />
-                <CardContent sx={{ display: 'flex', justifyContent: 'flex-start' ,flexDirection:"column"}}>
-                    <div className="content-container">
-                        <Typography gutterBottom variant="h6" component="div">
-                            {movie.original_title}
-                        </Typography>
-                        <Typography variant="body2">
-                            {movie.release_date}
-                        </Typography>
-                    </div>
-                    <div  className="content-container">
-                        <label htmlFor="" style={{ display: 'flex', alignItems: 'center' }}>
-                            <StarOutlineOutlinedIcon sx={{ color: '#07b4e2', marginRight: '4px' }} />
-                            {movie.vote_average}
-                        </label>
-                    </div>
+                <CardContent sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: "column" }}>
+
+                    <Typography gutterBottom variant="h6" component="div">
+                        {movie.original_title}
+                    </Typography>
+
+
                 </CardContent>
             </CardActionArea>
         </Card>
