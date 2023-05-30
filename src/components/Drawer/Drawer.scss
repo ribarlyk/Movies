@@ -18,7 +18,10 @@
     margin: 0;
     padding: 0;
 }
-
+.ganre-btn-link {
+    text-decoration: none;
+    color: #8a8989;
+}
 .ganre-btn {
     &:hover {
         background-color: rgba(53, 61, 61, 0.34);
@@ -47,4 +50,9 @@ form {
 
 body {
     background-color: #8a8989;
+}
+
+.home-link {
+    text-decoration: none;
+    color: #8a8989;
 }

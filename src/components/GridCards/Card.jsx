@@ -10,7 +10,6 @@ import getData from '../../services/fetchData';
 import StarOutlineOutlinedIcon from '@mui/icons-material/StarOutlineOutlined';
 export default function ActionAreaCard({ movie }) {
     const [crew, setCrew] = useState([])
-
     useEffect(() => {
         async function fetchData() {
             const popular = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1'
@@ -38,7 +37,7 @@ export default function ActionAreaCard({ movie }) {
                     sx={{ objectFit: "stretch" }}
 
                 />
-                <CardContent sx={{ display: 'flex', justifyContent: 'flex-start' ,flexDirection:"column"}}>
+                <CardContent sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: "column" }}>
                     <div className="content-container">
                         <Typography gutterBottom variant="h6" component="div">
                             {movie.title}
@@ -47,11 +46,13 @@ export default function ActionAreaCard({ movie }) {
                             {movie.release_date}
                         </Typography>
                     </div>
-                    <div  className="content-container">
-                        <label htmlFor="" style={{ display: 'flex', alignItems: 'center' }}>
-                            <StarOutlineOutlinedIcon sx={{ color: '#07b4e2', marginRight: '4px' }} />
-                            {movie.vote_average}
-                        </label>
+                    <div className="content-container">
+                        <div className="wrapper-modal">
+                            <label htmlFor="" style={{ display: 'flex', alignItems: 'center' }}>
+                                <StarOutlineOutlinedIcon sx={{ color: '#07b4e2', marginRight: '4px' }} />
+                                {movie.vote_average}
+                            </label>
+                        </div>
                     </div>
                 </CardContent>
             </CardActionArea>

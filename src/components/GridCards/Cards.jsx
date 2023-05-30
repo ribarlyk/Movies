@@ -29,6 +29,7 @@ export default function ResponsiveGrid() {
     const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const containerRef = useRef(null);
+    const [modalState, setModalState] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -138,6 +139,9 @@ export default function ResponsiveGrid() {
     }, []);
 
     console.log(movies);
+    const movieInfoHandler = () => {
+
+    }
 
     return (
         <div className='grid-container'>
@@ -183,10 +187,13 @@ export default function ResponsiveGrid() {
             </Box>
 
             <Box sx={{ flexGrow: 1, width: `calc(100% - 500px)`, ml: `400px`, mt: `70px` }}>
+                <h1 className="all-movies-title">Catalog</h1>
+
                 <Grid container spacing={{ xs: 4, md: 4 }} columns={{ xs: 4, sm: 8, md: 20 }}>
                     {movies.map((movie, index) => (
-                        <Grid xs={4} sm={4} md={4} key={movie.id}>
-                            <ActionAreaCard movie={movie} />
+                        <Grid xs={4} sm={4} md={4} key={movie.id} onClick={movieInfoHandler}>
+                            <ActionAreaCard movie={movie}>
+                            </ActionAreaCard>
                         </Grid>
                     ))}
 
