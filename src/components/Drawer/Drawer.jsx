@@ -62,6 +62,8 @@ export default function PermanentDrawerLeft() {
                 sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, display: 'flex', alignItems: 'center', bgcolor: 'black' }}
             >
                 <CustomizedInputBase className="customized-input" />
+                <Link to={"/"}className='home-btn-link'>HOME</Link>
+
             </AppBar>
 
             <Drawer
@@ -79,9 +81,10 @@ export default function PermanentDrawerLeft() {
                 variant="permanent"
                 anchor="left"
             >
+                <img className="logo" src='src/assets/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg' alt='logo'
+                >
 
-                <Link to={"/"} className='home-link'><img className="logo" src='src/assets/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg' alt='logo'
-                ></img></Link>
+                </img>
                 <Toolbar />
 
 
