@@ -29,7 +29,7 @@ export default function ActionAreaCardSmaller({ movie }) {
         }
         fetchData()
     }, [])
-    console.log(crew)
+    // console.log(crew)
     return (
         <Card sx={{ maxWidth: 200, height: 380, bgcolor: "#453e3e", color: "#8a8989" }}>
             <CardActionArea >

@@ -18,11 +18,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ganreSetter } from '../../store/genreSlice';
 import "./Drawer.scss"
 import { Link } from 'react-router-dom';
+import { addData } from '../../store/searchSlice';
 const drawerWidth = 280;
 
 export default function PermanentDrawerLeft() {
     const [genres, setGenres] = useState([])
-    const currentGenre = useSelector(state => state.ganre)
     const dispatch = useDispatch()
 
 
@@ -45,10 +45,12 @@ export default function PermanentDrawerLeft() {
         fetchData()
     }, [])
 
-    const onGanreHandler = () => {
+    const onInputHandler = (e) => {
+        e.preventDefault();
+        dispatch(addData(e.target.value)) 
     }
 
-    console.log(genres, currentGenre)
+
 
     return (
 
@@ -61,8 +63,8 @@ export default function PermanentDrawerLeft() {
                 position="fixed"
                 sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, display: 'flex', alignItems: 'center', bgcolor: 'black' }}
             >
-                <CustomizedInputBase className="customized-input" />
-                <Link to={"/"}className='home-btn-link'>HOME</Link>
+                <CustomizedInputBase className="customized-input" onInputHandler={onInputHandler} />
+                <Link to={"/"} className='home-btn-link'>HOME</Link>
 
             </AppBar>
 
@@ -96,7 +98,7 @@ export default function PermanentDrawerLeft() {
                     {genres.map((text, index) => (
                         <ListItem key={text.id} disablePadding className='ganre-btn' onClick={() => { dispatch(ganreSetter(text)) }} >
                             <Link to={`/ganres-${(text.name).toLowerCase()}`} className='ganre-btn-link'>
-                                <ListItemButton onClick={onGanreHandler}>
+                                <ListItemButton>
                                     <ListItemIcon>
                                         <div style={{ color: 'gray' }}>
                                             <MovieCreationTwoToneIcon />

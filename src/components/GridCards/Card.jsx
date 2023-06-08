@@ -28,7 +28,7 @@ export default function ActionAreaCard({ movie }) {
         }
         fetchData()
     }, [])
-    console.log(crew)
+    // console.log(crew)
     return (
         <Card sx={{ maxWidth: 300, maxHeight: 550, bgcolor: "#453e3e", color: "#8a8989" }} className='card'>
             <CardActionArea >
