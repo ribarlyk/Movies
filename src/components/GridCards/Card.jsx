@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import "./Card.scss"
 import getData from '../../services/fetchData';
 import StarOutlineOutlinedIcon from '@mui/icons-material/StarOutlineOutlined';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 export default function ActionAreaCard({ movie }) {
     const [crew, setCrew] = useState([])
     useEffect(() => {
@@ -30,13 +32,9 @@ export default function ActionAreaCard({ movie }) {
     return (
         <Card sx={{ maxWidth: 300, maxHeight: 550, bgcolor: "#453e3e", color: "#8a8989" }} className='card'>
             <CardActionArea >
-                <CardMedia
-                    component="img"
-                    image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                    alt="poster"
-                    sx={{ objectFit: "stretch" }}
-
-                />
+                    <LazyLoadImage src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                    width={260}
+                    />
                 <CardContent sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: "column" }}>
                     <div className="content-container">
                         <Typography gutterBottom variant="h6" component="div">

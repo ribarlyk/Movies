@@ -9,6 +9,7 @@ import "./Card.scss"
 import getData from '../../services/fetchData';
 import StarOutlineOutlinedIcon from '@mui/icons-material/StarOutlineOutlined';
 import "./SmallerCard.scss"
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export default function ActionAreaCardSmaller({ movie }) {
     const [crew, setCrew] = useState([])
@@ -16,7 +17,6 @@ export default function ActionAreaCardSmaller({ movie }) {
     useEffect(() => {
         async function fetchData() {
             const popular = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1'
-            const HOST = `https://api.themoviedb.org/3/movie/${movie.id}/credits?language=en-US`
             const options = {
                 method: 'GET',
                 headers: {
@@ -33,13 +33,10 @@ export default function ActionAreaCardSmaller({ movie }) {
     return (
         <Card sx={{ maxWidth: 200, height: 380, bgcolor: "#453e3e", color: "#8a8989" }}>
             <CardActionArea >
-                <CardMedia
-                    component="img"
-                    image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                    alt="poster"
-                    sx={{ objectFit: "stretch" }}
-
+                <LazyLoadImage src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                    width={200}
                 />
+
                 <CardContent sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: "column" }}>
 
                     <Typography gutterBottom component="div" >

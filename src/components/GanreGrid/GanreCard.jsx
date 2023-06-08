@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import StarOutlineOutlinedIcon from '@mui/icons-material/StarOutlineOutlined';
 import "./GanreCard.scss"
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export default function ActionAreaCardGanres({ movie }) {
 
@@ -13,13 +14,14 @@ export default function ActionAreaCardGanres({ movie }) {
     return (
         <Card sx={{ maxWidth: 300, maxHeight: 600, bgcolor: "#453e3e", color: "#8a8989" }} className='card'>
             <CardActionArea >
-                <CardMedia
-                    component="img"
-                    image={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                    alt="poster"
-                    sx={{ objectFit: "stretch" }}
 
+                <LazyLoadImage
+                    src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                    alt="poster"
+                    width={300}
+                    height={400}
                 />
+
                 <CardContent sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: "column" }}>
                     <div className="content-container">
                         <Typography gutterBottom variant="h6" component="div">
